@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Mentor {
+  id               String             @id @default(uuid())
+  email            String             @unique @db.VarChar(100)
+  password         String             @db.Text
+  firstname        String             @db.VarBit(50)
+  lastname         String             @db.VarChar(50)
+  phone            String             @unique @db.VarChar(10)
+  image            String             @db.VarChar(255)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  MentorInCategory MentorInCategory[]
+  Booking          Booking[]
+
+  @@map("mentors")
+}
+
+model Category {
+  id               String             @id @default(uuid())
+  name             String             @unique @db.VarChar(50)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  MentorInCategory MentorInCategory[]
+
+  @@map("categories")
+}
+
+model MentorInCategory {
+  id         String   @id @default(uuid())
+  mentorId   String
+  categoryId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Mentor     Mentor   @relation(fields: [mentorId], references: [id])
+  Category   Category @relation(fields: [categoryId], references: [id])
+
+  @@map("mentor_in_categories")
+}
+
+model Customer {
+  id        String    @id @default(uuid())
+  email     String    @unique @db.VarChar(100)
+  password  String    @db.Text
+  firstname String    @db.VarBit(50)
+  lastname  String    @db.VarChar(50)
+  phone     String    @unique @db.VarChar(10)
+  image     String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Booking   Booking[]
+
+  @@map("customers")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  email     String   @unique @db.VarChar(100)
+  password  String   @db.Text
+  firstname String   @db.VarBit(50)
+  lastname  String   @db.VarChar(50)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("administrators")
+}
+
+model Booking {
+  id          String   @id @default(uuid())
+  image       String   @db.VarChar(255)
+  description String?  @db.Text
+  startDate   DateTime
+  stopDate    DateTime
+  mentorId    String
+  customerId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Mentor      Mentor   @relation(fields: [mentorId], references: [id])
+  Customer    Customer @relation(fields: [customerId], references: [id])
+  Review      Review[]
+
+  @@map("bookings")
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  score       Int      @db.SmallInt
+  description String?  @db.Text
+  bookingId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Booking     Booking  @relation(fields: [bookingId], references: [id])
+
+  @@map("reviews")
+}
