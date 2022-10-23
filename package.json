@@ -1,0 +1,44 @@
+{
+  "name": "healthby-backend",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "NODE_ENV=development tsx watch src/index.ts",
+    "build": "tsc"
+  },
+  "author": {
+    "name": "Jaruwat Thongchana",
+    "url": "https://github.com/RNCAT"
+  },
+  "contributors": [
+    {
+      "name": "Ratchanon Songmeuang",
+      "url": "https://github.com/LORDNR"
+    }
+  ],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.3",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "tsx": "^3.10.4",
+    "typescript": "^4.8.4"
+  }
+}
